@@ -1,0 +1,157 @@
+@import "tailwindcss";
+
+/* NusaRoast roastery design system */
+:root {
+  --background: #f7f2e9;
+  --foreground: #201611;
+  --card: #ece3d6;
+  --paper: #fffcf6;
+  --primary: #2a1a12;
+  --muted: #655b52;
+  --border: #d9cdbd;
+  --border-strong: #958575;
+  --accent: #9e3f2a;
+  --success: #2f6b48;
+  --warning: #8a5a12;
+  --danger: #a12d2d;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-paper: var(--paper);
+  --color-primary: var(--primary);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-accent: var(--accent);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --font-jakarta: var(--font-jakarta);
+  --font-display: var(--font-fraunces);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-jakarta);
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent);
+  color: #fffaf2;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@layer components {
+  .button {
+    @apply inline-flex min-h-11 items-center justify-center rounded-md px-5 py-2.5 font-jakarta text-sm font-semibold transition-colors duration-150 disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .button-primary {
+    @apply bg-primary text-white hover:bg-primary/90;
+  }
+
+  .button-outline {
+    @apply border border-border-strong bg-transparent text-primary hover:border-primary hover:bg-primary/5;
+  }
+
+  .button-ghost {
+    @apply bg-transparent px-3 text-primary hover:bg-primary/5;
+  }
+
+  .button-accent {
+    @apply bg-accent text-white hover:bg-accent/90;
+  }
+
+  .input {
+    @apply min-h-11 w-full rounded-md border border-border-strong bg-paper px-3.5 py-2.5 font-jakarta text-sm text-primary transition-colors placeholder:text-muted focus:border-primary focus:ring-2 focus:ring-primary/10;
+  }
+
+  .badge {
+    @apply inline-flex items-center rounded-sm px-2 py-0.5 font-jakarta text-[11px] font-semibold uppercase tracking-[0.08em];
+  }
+
+  .card {
+    @apply rounded-lg border border-border bg-paper;
+  }
+
+  .eyebrow {
+    @apply font-jakarta text-[11px] font-semibold uppercase tracking-[0.16em] text-muted;
+  }
+
+  .display-title {
+    @apply font-display text-4xl font-semibold leading-[0.98] tracking-[-0.025em] text-primary sm:text-5xl lg:text-6xl;
+  }
+}
+
+.roast-indicator {
+  @apply inline-flex items-center gap-1;
+}
+
+.roast-indicator .bean {
+  @apply h-2 w-2 rounded-full bg-primary;
+}
+
+.roast-indicator .bean-empty {
+  @apply h-2 w-2 rounded-full border border-primary bg-transparent;
+}
+
+@keyframes promotion-fade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.promotion-fade {
+  animation: promotion-fade 420ms ease both;
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  animation: page-enter 220ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .page-enter {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
