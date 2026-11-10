@@ -38,12 +38,12 @@ describe('AdminGuard', () => {
     });
   });
 
-  it('allows an active seller', async () => {
-    verify.mockReturnValue({ userId: 1, role: 'SELLER' });
-    findUnique.mockResolvedValue({ role: 'SELLER', status: 'ACTIVE' });
+  it('allows an active admin', async () => {
+    verify.mockReturnValue({ userId: 1, role: 'ADMIN' });
+    findUnique.mockResolvedValue({ role: 'ADMIN', status: 'ACTIVE' });
 
     await expect(
-      guard.canActivate(contextFor('Bearer seller-token')),
+      guard.canActivate(contextFor('Bearer admin-token')),
     ).resolves.toBe(true);
     expect(findUnique).toHaveBeenCalledWith({
       where: { id: 1 },
@@ -51,12 +51,12 @@ describe('AdminGuard', () => {
     });
   });
 
-  it('rejects a banned seller even with a valid token', async () => {
-    verify.mockReturnValue({ userId: 1, role: 'SELLER' });
-    findUnique.mockResolvedValue({ role: 'SELLER', status: 'BANNED' });
+  it('rejects a banned admin even with a valid token', async () => {
+    verify.mockReturnValue({ userId: 1, role: 'ADMIN' });
+    findUnique.mockResolvedValue({ role: 'ADMIN', status: 'BANNED' });
 
     await expect(
-      guard.canActivate(contextFor('Bearer seller-token')),
+      guard.canActivate(contextFor('Bearer admin-token')),
     ).rejects.toBeInstanceOf(ForbiddenException);
   });
 
@@ -70,11 +70,11 @@ describe('AdminGuard', () => {
   });
 
   it('rejects a missing user', async () => {
-    verify.mockReturnValue({ userId: 99, role: 'SELLER' });
+    verify.mockReturnValue({ userId: 99, role: 'ADMIN' });
     findUnique.mockResolvedValue(null);
 
     await expect(
-      guard.canActivate(contextFor('Bearer seller-token')),
+      guard.canActivate(contextFor('Bearer admin-token')),
     ).rejects.toBeInstanceOf(ForbiddenException);
   });
 

@@ -143,7 +143,7 @@ export class NotificationsService {
       orderId,
       'CANCELLATION',
       'Pesanan Dibatalkan',
-      `Halo ${order.user.name}, pesanan Anda dibatalkan oleh penjual.${reasonText} Untuk informasi pengembalian dana, hubungi penjual via WhatsApp.`,
+      `Halo ${order.user.name}, pesanan Anda dibatalkan oleh admin.${reasonText} Untuk informasi pengembalian dana, hubungi admin via WhatsApp.`,
     );
 
     return true;

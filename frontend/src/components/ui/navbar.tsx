@@ -116,7 +116,7 @@ export function Navbar() {
   useOutsideClick(userMenuRef, closeUserMenu, userMenuOpen)
 
   const fetchCartCount = useCallback(async () => {
-    if (getAuthUser()?.role === "SELLER") {
+    if (getAuthUser()?.role === "ADMIN") {
       setCartCount(0)
       return
     }
@@ -279,7 +279,7 @@ export function Navbar() {
     setCartCount(0)
     setUserMenuOpen(false)
     closeMobileMenu()
-    router.push(user?.role === "SELLER" ? "/login" : "/")
+    router.push(user?.role === "ADMIN" ? "/login" : "/")
   }
 
   if (pathname?.startsWith("/admin")) {
@@ -308,11 +308,11 @@ export function Navbar() {
     )
   }
 
-  const isSeller = user?.role === "SELLER"
+  const isAdmin = user?.role === "ADMIN"
   const displayName = user?.name?.trim() || "Akun saya"
   const initial = displayName.charAt(0).toUpperCase()
   const avatar = avatarDataUrl(user?.avatarBase64)
-  const mobileLinks = isSeller
+  const mobileLinks = isAdmin
     ? [
         { href: "/admin", label: "Dashboard", hash: false },
         { href: "/profile", label: "Profil saya", hash: false },
@@ -334,9 +334,9 @@ export function Navbar() {
     <nav className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background">
       <div className="mx-auto flex h-[72px] max-w-7xl items-center gap-3 px-4 sm:px-6">
         <Link
-          href={isSeller ? "/admin" : "/"}
+          href={isAdmin ? "/admin" : "/"}
           className="flex min-h-11 shrink-0 items-center gap-2.5 text-primary"
-          aria-label={isSeller ? "NusaRoast, ke dashboard penjual" : "NusaRoast, ke beranda"}
+          aria-label={isAdmin ? "NusaRoast, ke dashboard admin" : "NusaRoast, ke beranda"}
         >
           
           <span className="relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden">
@@ -355,7 +355,7 @@ export function Navbar() {
         </Link>
 
         <div className="ml-6 hidden items-center gap-7 md:flex">
-          {isSeller ? (
+          {isAdmin ? (
             <>
               {navLink("/admin", "Dashboard")}
               {navLink("/profile", "Profil")}
@@ -375,7 +375,7 @@ export function Navbar() {
         </div>
 
         <div className="ml-auto flex items-center gap-1 sm:gap-1.5">
-          {!isSeller && (
+          {!isAdmin && (
             <>
               <div
                 className="relative"
@@ -587,13 +587,13 @@ export function Navbar() {
                         {user.name || "Akun NusaRoast"}
                       </p>
                       <p className="mt-0.5 truncate font-jakarta text-xs text-muted">
-                        {user.email || (isSeller ? "Penjual" : "Pembeli")}
+                        {user.email || (isAdmin ? "Admin" : "Pembeli")}
                       </p>
                       <p className="mt-2 font-jakarta text-[10px] font-semibold uppercase tracking-[0.14em] text-accent">
-                        {isSeller ? "Akun penjual" : "Akun pembeli"}
+                        {isAdmin ? "Akun admin" : "Akun pembeli"}
                       </p>
                     </div>
-                    {isSeller ? (
+                    {isAdmin ? (
                       <>
                         <Link
                           href="/admin"
@@ -601,7 +601,7 @@ export function Navbar() {
                           onClick={closeUserMenu}
                         >
                           <Store className="h-4 w-4" aria-hidden="true" />
-                          Dashboard penjual
+                          Dashboard admin
                         </Link>
                         <Link
                           href="/profile"
@@ -744,7 +744,7 @@ export function Navbar() {
             </div>
 
             <div className="flex-1 px-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-4">
-              {!isSeller && (
+              {!isAdmin && (
                 <form onSubmit={submitSearch} className="mb-5 flex gap-2">
                   <div className="relative min-w-0 flex-1">
                     <Search
@@ -791,7 +791,7 @@ export function Navbar() {
                   <div className="min-w-0">
                     <p className="truncate font-jakarta text-sm font-semibold text-primary">{displayName}</p>
                     <p className="truncate font-jakarta text-xs text-muted">
-                      {user.email || (isSeller ? "Akun penjual" : "Akun pembeli")}
+                      {user.email || (isAdmin ? "Akun admin" : "Akun pembeli")}
                     </p>
                   </div>
                 </div>

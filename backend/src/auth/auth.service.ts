@@ -224,9 +224,9 @@ export class AuthService {
       throw new NotFoundException('Akun tidak ditemukan');
     }
 
-    if (user.role === 'SELLER') {
+    if (user.role === 'ADMIN') {
       throw new UnauthorizedException(
-        'Penjual tidak diizinkan mengubah password',
+        'Admin tidak diizinkan mengubah password',
       );
     }
 

@@ -1,19 +1,19 @@
 import { IsIn, IsOptional, IsString, MaxLength } from 'class-validator';
 
-export const SELLER_ORDER_STATUSES = [
+export const ADMIN_ORDER_STATUSES = [
   'PROCESSING',
   'SHIPPED',
   'COMPLETED',
   'CANCELLED',
 ] as const;
 
-export type SellerOrderStatus = (typeof SELLER_ORDER_STATUSES)[number];
+export type AdminOrderStatus = (typeof ADMIN_ORDER_STATUSES)[number];
 
 export class UpdateAdminOrderStatusDto {
-  @IsIn(SELLER_ORDER_STATUSES, {
-    message: 'Status pesanan tidak dapat diubah oleh penjual',
+  @IsIn(ADMIN_ORDER_STATUSES, {
+    message: 'Status pesanan tidak dapat diubah oleh admin',
   })
-  status!: SellerOrderStatus;
+  status!: AdminOrderStatus;
 
   @IsOptional()
   @IsString({ message: 'Alasan penolakan harus berupa teks' })

@@ -51,7 +51,7 @@ export const orderTrackingFlow = {
   step3:
     'Status order: Menunggu Pembayaran / Diproses / Dikirim / Selesai / Dibatalkan',
   step4:
-    'Input resi oleh seller: "Salin nomor resi untuk mengecek pengiriman di situs resmi kurir"',
+    'Input resi oleh admin: "Salin nomor resi untuk mengecek pengiriman di situs resmi kurir"',
 };
 
 // Order Confirmation Flow

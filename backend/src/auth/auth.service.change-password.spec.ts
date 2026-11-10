@@ -88,11 +88,11 @@ describe('AuthService changePassword', () => {
     expect(prisma.user.update).not.toHaveBeenCalled();
   });
 
-  it('rejects seller accounts from changing their password', async () => {
+  it('rejects admin accounts from changing their password', async () => {
     prisma.user.findUnique.mockResolvedValue({
       id: 1,
       password: hashSync('old-secret', 10),
-      role: 'SELLER',
+      role: 'ADMIN',
     });
 
     await expect(

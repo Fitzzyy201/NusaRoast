@@ -6,7 +6,7 @@
 // Dashboard Flow
 export const dashboardFlow = {
   step1: 'Login via /login?redirect=/admin',
-  step2: 'Tampak header "Halo, [Nama Seller]"',
+  step2: 'Tampak header "Halo, [Nama Admin]"',
   step3: 'Metric cards: Total Keuangan, Pesanan Diproses, Produk Aktif',
 };
 
@@ -34,5 +34,5 @@ export const orderManagementFlow = {
   step3: 'Ubah status: PAID → PROCESSING',
   step4: 'Ubah status: PROCESSING → SHIPPED',
   step5: 'Masukkan nomor resi saat order dikirim',
-  step6: 'Seller tidak perlu memasukkan nama kurir',
+  step6: 'Admin tidak perlu memasukkan nama kurir',
 };

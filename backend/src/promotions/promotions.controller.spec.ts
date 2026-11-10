@@ -32,7 +32,7 @@ describe('PromotionsController', () => {
     (getPrismaClient as jest.Mock).mockReturnValue({
       user: {
         findUnique: jest.fn(({ where }: { where: { id: number } }) => {
-          if (where.id === 1) return { role: 'SELLER', status: 'ACTIVE' };
+          if (where.id === 1) return { role: 'ADMIN', status: 'ACTIVE' };
           if (where.id === 2) return { role: 'BUYER', status: 'ACTIVE' };
           return null;
         }),
@@ -40,7 +40,7 @@ describe('PromotionsController', () => {
     });
     jwt = {
       verify: jest.fn((token: string) => {
-        if (token === 'seller-token') return { userId: 1, role: 'SELLER' };
+        if (token === 'admin-token') return { userId: 1, role: 'ADMIN' };
         if (token === 'buyer-token') return { userId: 2, role: 'BUYER' };
         throw new Error('invalid token');
       }),
@@ -84,20 +84,20 @@ describe('PromotionsController', () => {
       .expect(403);
     await request(app.getHttpServer())
       .get('/admin/promotions')
-      .set('Authorization', 'Bearer seller-token')
+      .set('Authorization', 'Bearer admin-token')
       .expect(200);
   });
 
   it('validates promotion payloads and delegates to the service', async () => {
     await request(app.getHttpServer())
       .post('/admin/promotions')
-      .set('Authorization', 'Bearer seller-token')
+      .set('Authorization', 'Bearer admin-token')
       .send({ productId: 1, title: 'Hi', description: 'short' })
       .expect(400);
 
     await request(app.getHttpServer())
       .post('/admin/promotions')
-      .set('Authorization', 'Bearer seller-token')
+      .set('Authorization', 'Bearer admin-token')
       .send({
         productId: 1,
         title: 'Gayo spesial',
@@ -117,12 +117,12 @@ describe('PromotionsController', () => {
   it('delegates update and remove to the service', async () => {
     await request(app.getHttpServer())
       .post('/admin/promotions/1')
-      .set('Authorization', 'Bearer seller-token')
+      .set('Authorization', 'Bearer admin-token')
       .send({ title: 'Judul baru' })
       .expect(201);
     await request(app.getHttpServer())
       .post('/admin/promotions/1/remove')
-      .set('Authorization', 'Bearer seller-token')
+      .set('Authorization', 'Bearer admin-token')
       .expect(201);
 
     expect(promotionsService.update).toHaveBeenCalledWith(1, {

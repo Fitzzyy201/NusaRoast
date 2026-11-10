@@ -75,7 +75,7 @@ describe('PromotionsService', () => {
     );
   });
 
-  it('returns all promotions for the seller', async () => {
+  it('returns all promotions for the admin', async () => {
     promotionModel.findMany.mockResolvedValue([promotion]);
 
     await expect(service.findAll()).resolves.toHaveLength(1);

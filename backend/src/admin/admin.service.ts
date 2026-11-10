@@ -8,7 +8,7 @@ import { Prisma, OrderStatus } from '@prisma/client';
 import { getPrismaClient } from '../prisma';
 import { restoreStockForOrder } from '../orders/order-stock';
 import { banBuyerDto } from './dto/ban-buyer.dto';
-import { SellerOrderStatus } from './dto/update-order-status.dto';
+import { AdminOrderStatus } from './dto/update-order-status.dto';
 import { ProductsService } from '../products/products.service';
 import { OrdersService } from '../orders/orders.service';
 import { NotificationsService } from '../notifications/notifications.service';
@@ -20,7 +20,7 @@ const PAID_ORDER_STATUSES: OrderStatus[] = [
   'COMPLETED',
 ];
 
-const SELLER_STATUS_TRANSITIONS: Record<OrderStatus, OrderStatus[]> = {
+const ADMIN_STATUS_TRANSITIONS: Record<OrderStatus, OrderStatus[]> = {
   PENDING: ['CANCELLED'],
   PAID: ['PROCESSING', 'CANCELLED'],
   PROCESSING: ['SHIPPED', 'CANCELLED'],
@@ -179,7 +179,7 @@ export class AdminService {
 
   async updateOrderStatus(
     orderId: number,
-    status: SellerOrderStatus,
+    status: AdminOrderStatus,
     reason?: string,
   ) {
     const order = await this.prisma.order.findUnique({
@@ -194,7 +194,7 @@ export class AdminService {
       throw new BadRequestException('Status pesanan tidak berubah');
     }
 
-    if (!SELLER_STATUS_TRANSITIONS[order.status].includes(status)) {
+    if (!ADMIN_STATUS_TRANSITIONS[order.status].includes(status)) {
       throw new BadRequestException(
         `Status tidak dapat diubah dari ${order.status} ke ${status}`,
       );

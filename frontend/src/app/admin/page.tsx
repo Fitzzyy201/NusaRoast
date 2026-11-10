@@ -234,7 +234,7 @@ export default function AdminDashboardPage() {
       }
       const current = getAuthUser()
       setUser(current)
-      if (current?.role !== "SELLER") {
+      if (current?.role !== "ADMIN") {
         setAuthState("forbidden")
         setLoading(false)
         return
@@ -690,9 +690,9 @@ export default function AdminDashboardPage() {
 
   const totalRevenue = dashboard?.totalFinance.totalAmount ?? 0
 
-  const sellerName = user?.name?.trim() || "Penjual"
-  const sellerInitial = sellerName.charAt(0).toUpperCase()
-  const sellerAvatar = avatarDataUrl(user?.avatarBase64)
+  const adminName = user?.name?.trim() || "Admin"
+  const adminInitial = adminName.charAt(0).toUpperCase()
+  const adminAvatar = avatarDataUrl(user?.avatarBase64)
 
   const runConfirm = async () => {
     if (!confirmRequest) return
@@ -715,7 +715,7 @@ export default function AdminDashboardPage() {
   if (authState === "checking") {
     return (
       <div className="-mt-[72px] flex min-h-screen items-center justify-center bg-background">
-        <p className="font-jakarta text-sm text-muted">Memeriksa akses penjual...</p>
+        <p className="font-jakarta text-sm text-muted">Memeriksa akses admin...</p>
       </div>
     )
   }
@@ -728,10 +728,10 @@ export default function AdminDashboardPage() {
             <Store className="h-6 w-6" aria-hidden="true" />
           </span>
           <h1 className="mt-5 font-display text-3xl font-semibold text-primary">
-            Masuk sebagai penjual
+            Masuk sebagai admin
           </h1>
           <p className="mt-2 font-jakarta text-sm leading-relaxed text-muted">
-            Dashboard pesanan, produk, dan pembeli hanya tersedia untuk akun penjual.
+            Dashboard pesanan, produk, dan pembeli hanya tersedia untuk akun admin.
           </p>
           <Link
             href={`/login?redirect=${encodeURIComponent("/admin")}`}
@@ -755,10 +755,10 @@ export default function AdminDashboardPage() {
       <div className="-mt-[72px] flex min-h-screen items-center justify-center bg-background px-4">
         <div className="w-full max-w-md rounded-lg border border-border bg-paper px-6 py-10 text-center">
           <h1 className="font-display text-3xl font-semibold text-primary">
-            Akun ini bukan penjual
+            Akun ini bukan admin
           </h1>
           <p className="mt-2 font-jakarta text-sm leading-relaxed text-muted">
-            Masuk dengan akun berperan SELLER untuk membuka dashboard penjual.
+            Masuk dengan akun berperan ADMIN untuk membuka dashboard admin.
           </p>
           <div className="mt-6 flex flex-col gap-2">
             <Link
@@ -788,14 +788,14 @@ export default function AdminDashboardPage() {
               <span className="font-display text-xl font-semibold">NusaRoast</span>
             </Link>
             <span className="hidden rounded-sm bg-card px-2 py-1 font-jakarta text-[10px] font-semibold uppercase tracking-[0.1em] text-muted sm:inline">
-              Penjual
+              Admin
             </span>
           </div>
 
           <div className="flex items-center gap-1.5">
             <Link
               href="/profile"
-              aria-label="Profil penjual"
+              aria-label="Profil admin"
               className="flex min-h-11 items-center gap-2 rounded-md px-2.5 font-jakarta text-sm font-medium text-muted hover:bg-primary/5 hover:text-primary sm:px-3"
             >
               <UserRound className="h-4 w-4" aria-hidden="true" />
@@ -803,10 +803,10 @@ export default function AdminDashboardPage() {
             </Link>
             <div className="flex items-center gap-2.5">
               <span className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full border border-border bg-card">
-                {sellerAvatar ? (
+                {adminAvatar ? (
                   <Image
-                    src={sellerAvatar}
-                    alt={`Foto profil ${sellerName}`}
+                    src={adminAvatar}
+                    alt={`Foto profil ${adminName}`}
                     fill
                     unoptimized
                     sizes="36px"
@@ -817,13 +817,13 @@ export default function AdminDashboardPage() {
                     className="absolute inset-0 flex items-center justify-center font-jakarta text-sm font-semibold text-primary"
                     aria-hidden="true"
                   >
-                    {sellerInitial}
+                    {adminInitial}
                   </span>
                 )}
               </span>
               <div className="hidden text-right md:block">
                 <p className="max-w-36 truncate font-jakarta text-sm font-semibold text-primary">
-                  {sellerName}
+                  {adminName}
                 </p>
                 <p className="max-w-36 truncate font-jakarta text-xs text-muted">{user?.email}</p>
               </div>
@@ -885,7 +885,7 @@ export default function AdminDashboardPage() {
         {loading ? (
           <div className="rounded-lg border border-border bg-paper px-6 py-16 text-center">
             <Loader2 className="mx-auto h-6 w-6 animate-spin text-muted" aria-hidden="true" />
-            <p className="mt-3 font-jakarta text-sm text-muted">Memuat data penjual...</p>
+            <p className="mt-3 font-jakarta text-sm text-muted">Memuat data admin...</p>
           </div>
         ) : loadError ? (
           <div className="rounded-lg border border-border bg-paper px-6 py-12 text-center">
@@ -904,7 +904,7 @@ export default function AdminDashboardPage() {
               <div>
                 <p className="eyebrow">Dashboard</p>
                 <h1 className="mt-2 font-display text-4xl font-semibold tracking-[-0.03em] text-primary">
-                  Halo, {user?.name || "Penjual"}
+                  Halo, {user?.name || "Admin"}
                 </h1>
               </div>
               <button

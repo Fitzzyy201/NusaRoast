@@ -321,7 +321,7 @@ export const isAuthenticated = (): boolean => {
   return !!getAuthToken()
 }
 
-export const isSeller = (): boolean => getAuthUser()?.role === "SELLER"
+export const isAdmin = (): boolean => getAuthUser()?.role === "ADMIN"
 
 // Auth API - all auth functions
 export const loginApi = {
@@ -1098,7 +1098,7 @@ export const adminApi = {
     const res = await apiFetch(`${BASE_URL}/admin/dashboard`, {
       headers: token ? { Authorization: `Bearer ${token}` } : {},
     })
-    if (!res.ok) await throwApiError(res, "Gagal memuat ringkasan penjual")
+    if (!res.ok) await throwApiError(res, "Gagal memuat ringkasan admin")
     return res.json()
   },
 

@@ -60,12 +60,12 @@ describe('BuyerGuard', () => {
     ).rejects.toBeInstanceOf(UnauthorizedException);
   });
 
-  it('rejects a seller', async () => {
-    verify.mockReturnValue({ userId: 1, role: 'SELLER' });
-    findUnique.mockResolvedValue({ role: 'SELLER', status: 'ACTIVE' });
+  it('rejects a admin', async () => {
+    verify.mockReturnValue({ userId: 1, role: 'ADMIN' });
+    findUnique.mockResolvedValue({ role: 'ADMIN', status: 'ACTIVE' });
 
     await expect(
-      guard.canActivate(contextFor('Bearer seller-token')),
+      guard.canActivate(contextFor('Bearer admin-token')),
     ).rejects.toBeInstanceOf(ForbiddenException);
   });
 

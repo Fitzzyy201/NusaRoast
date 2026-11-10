@@ -115,11 +115,11 @@ describe('JwtAuthGuard', () => {
     );
   });
 
-  it('allows an active seller without changing the token role', async () => {
-    const payload = { userId: 1, role: 'SELLER' };
+  it('allows an active admin without changing the token role', async () => {
+    const payload = { userId: 1, role: 'ADMIN' };
     jwt.verify.mockReturnValue(payload);
     prisma.user.findUnique.mockResolvedValue({ status: 'ACTIVE' });
-    const { context, request } = contextFor('Bearer seller-token');
+    const { context, request } = contextFor('Bearer admin-token');
 
     await expect(guard.canActivate(context)).resolves.toBe(true);
 

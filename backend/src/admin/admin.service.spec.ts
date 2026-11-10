@@ -309,7 +309,7 @@ describe('AdminService', () => {
       service.banBuyer({ userId: 99, banned: true }),
     ).rejects.toBeInstanceOf(NotFoundException);
 
-    user.findUnique.mockResolvedValueOnce({ id: 1, role: 'SELLER' });
+    user.findUnique.mockResolvedValueOnce({ id: 1, role: 'ADMIN' });
     await expect(
       service.banBuyer({ userId: 1, banned: true }),
     ).rejects.toBeInstanceOf(BadRequestException);

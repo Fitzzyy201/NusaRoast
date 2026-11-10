@@ -239,7 +239,7 @@ export function ProductGrid({
                 ? `Tidak ada produk yang cocok dengan "${search}". Coba kata kunci atau kategori lain.`
                 : activeCategory !== "all"
                   ? "Coba lihat kategori lain untuk menemukan kopi yang tersedia."
-                  : "Produk akan muncul di sini setelah ditambahkan oleh penjual."}
+                  : "Produk akan muncul di sini setelah ditambahkan oleh admin."}
             </p>
             <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
               {activeCategory !== "all" &&

@@ -6,8 +6,8 @@
 //
 //   npm run seed
 //
-// Seller credentials are read from backend/.env (never hardcoded here):
-//   SELLER_EMAIL / SELLER_PASSWORD
+// Admin credentials are read from backend/.env (never hardcoded here):
+//   ADMIN_EMAIL / ADMIN_PASSWORD
 // The seeded dev buyer account:
 //   buyer@test.com / password123
 //
@@ -20,16 +20,16 @@ import { getPrismaClient } from '../src/prisma';
 
 const prisma = getPrismaClient();
 
-const SELLER_EMAIL = process.env.SELLER_EMAIL?.trim();
-const SELLER_PASSWORD = process.env.SELLER_PASSWORD?.trim();
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL?.trim();
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD?.trim();
 
-if (!SELLER_EMAIL || !SELLER_PASSWORD) {
+if (!ADMIN_EMAIL || !ADMIN_PASSWORD) {
   throw new Error(
-    'SELLER_EMAIL dan SELLER_PASSWORD belum diisi. Tambahkan keduanya di backend/.env sebelum menjalankan seed.',
+    'ADMIN_EMAIL dan ADMIN_PASSWORD belum diisi. Tambahkan keduanya di backend/.env sebelum menjalankan seed.',
   );
 }
 
-const SELLER_PASSWORD_HASH = hashSync(SELLER_PASSWORD, 10);
+const ADMIN_PASSWORD_HASH = hashSync(ADMIN_PASSWORD, 10);
 const BUYER_PASSWORD_HASH = hashSync('password123', 10);
 
 type SeedUser = {
@@ -39,20 +39,20 @@ type SeedUser = {
   address: string;
   city: string;
   cityCode: string;
-  role: 'SELLER' | 'BUYER';
+  role: 'ADMIN' | 'BUYER';
   passwordHash: string;
 };
 
 const SEED_USERS: SeedUser[] = [
   {
-    name: 'Seller NusaRoast',
-    email: SELLER_EMAIL,
+    name: 'Admin NusaRoast',
+    email: ADMIN_EMAIL,
     phone: '6281234567890',
     address: 'Bekasi Barat, Kota Bekasi, Jawa Barat',
     city: 'Kota Bekasi',
     cityCode: '32.75',
-    role: 'SELLER',
-    passwordHash: SELLER_PASSWORD_HASH,
+    role: 'ADMIN',
+    passwordHash: ADMIN_PASSWORD_HASH,
   },
   {
     name: 'Buyer Test',

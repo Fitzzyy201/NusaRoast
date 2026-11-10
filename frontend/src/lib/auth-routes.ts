@@ -18,7 +18,7 @@ export function loginDestination(
   role: string | null | undefined,
   rawRedirect: string | null | undefined
 ): string {
-  if (role === "SELLER") return "/admin"
+  if (role === "ADMIN") return "/admin"
 
   const redirect = safeRedirectPath(rawRedirect)
   if (redirect && !isAdminPath(redirect) && !isAuthPath(redirect)) return redirect
@@ -37,7 +37,7 @@ export function roleRedirect(
       : null
   }
 
-  if (role === "SELLER") {
+  if (role === "ADMIN") {
     if (isAdminPath(pathname) || pathname === "/profile") return null
     return "/admin"
   }

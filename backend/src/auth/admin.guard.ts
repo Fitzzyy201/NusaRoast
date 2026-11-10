@@ -56,8 +56,8 @@ export class AdminGuard implements CanActivate {
       throw new ForbiddenException('Akun tidak aktif atau tidak ditemukan');
     }
 
-    if (user.role !== 'SELLER') {
-      throw new ForbiddenException('Akun ini bukan penjual');
+    if (user.role !== 'ADMIN') {
+      throw new ForbiddenException('Akun ini bukan admin');
     }
 
     request.user = { userId: decoded.userId, role: user.role };

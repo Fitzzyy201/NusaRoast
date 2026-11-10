@@ -27,7 +27,7 @@ function LoginContent() {
     try {
       const response = await loginApi.login({ email: email.trim(), password })
       const role = response.user?.role ?? getAuthUser()?.role
-      if (role !== "SELLER") {
+      if (role !== "ADMIN") {
         await cartApi.mergeGuestCart().catch(() => {})
       }
       const target = loginDestination(role, searchParams.get("redirect"))
@@ -35,7 +35,7 @@ function LoginContent() {
     } catch (err) {
       let message = err instanceof Error ? err.message : "Login gagal"
       if (message.toLowerCase().includes("banned")) {
-        message = "Email atau password salah, atau akun ini diblokir. Hubungi penjual jika akun Anda seharusnya aktif."
+        message = "Email atau password salah, atau akun ini diblokir. Hubungi admin jika akun Anda seharusnya aktif."
       } else if (message.toLowerCase().includes("invalid credentials")) {
         message = "Email atau password salah."
       }

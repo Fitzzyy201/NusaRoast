@@ -279,7 +279,7 @@ export default function ProfilePage() {
 
   const avatar = avatarDataUrl(profile.avatarBase64)
   const initial = profile.name.trim().charAt(0).toUpperCase() || "N"
-  const isSeller = profile.role === "SELLER"
+  const isAdmin = profile.role === "ADMIN"
 
   return (
     <div className="min-h-[calc(100vh-72px)] bg-background py-6 sm:py-10 lg:py-14">
@@ -342,7 +342,7 @@ export default function ProfilePage() {
 
               <div className="mt-3 flex flex-wrap justify-center gap-2">
                 <span className="badge bg-primary/10 text-primary">
-                  {isSeller ? "Penjual" : "Pembeli"}
+                  {isAdmin ? "Admin" : "Pembeli"}
                 </span>
                 <span
                   className={
@@ -549,10 +549,10 @@ export default function ProfilePage() {
                   )}
                 </button>
                 <Link
-                  href={isSeller ? "/admin" : "/orders"}
+                  href={isAdmin ? "/admin" : "/orders"}
                   className="inline-flex min-h-11 items-center font-jakarta text-sm font-medium text-primary underline underline-offset-4"
                 >
-                  {isSeller ? "Kembali ke dashboard" : "Lihat pesanan saya"}
+                  {isAdmin ? "Kembali ke dashboard" : "Lihat pesanan saya"}
                 </Link>
               </div>
               </form>

@@ -49,7 +49,7 @@ describe('ProductsController mutations', () => {
     prisma.mockReturnValue({
       user: {
         findUnique: jest.fn(({ where }: { where: { id: number } }) => {
-          if (where.id === 1) return { role: 'SELLER', status: 'ACTIVE' };
+          if (where.id === 1) return { role: 'ADMIN', status: 'ACTIVE' };
           if (where.id === 2) return { role: 'BUYER', status: 'ACTIVE' };
           return null;
         }),
@@ -57,7 +57,7 @@ describe('ProductsController mutations', () => {
     });
     jwt = {
       verify: jest.fn((token: string) => {
-        if (token === 'seller-token') return { userId: 1, role: 'SELLER' };
+        if (token === 'admin-token') return { userId: 1, role: 'ADMIN' };
         if (token === 'buyer-token') return { userId: 2, role: 'BUYER' };
         throw new Error('invalid token');
       }),
@@ -126,10 +126,10 @@ describe('ProductsController mutations', () => {
     },
   );
 
-  it('allows a seller to create a product', async () => {
+  it('allows a admin to create a product', async () => {
     await request(app.getHttpServer())
       .post('/products')
-      .set('Authorization', 'Bearer seller-token')
+      .set('Authorization', 'Bearer admin-token')
       .send(validProduct)
       .expect(201);
 
@@ -138,10 +138,10 @@ describe('ProductsController mutations', () => {
     );
   });
 
-  it('allows a seller to update a product', async () => {
+  it('allows a admin to update a product', async () => {
     await request(app.getHttpServer())
       .post('/products/2')
-      .set('Authorization', 'Bearer seller-token')
+      .set('Authorization', 'Bearer admin-token')
       .send({ variants: [{ weight: '250g', price: 99000, stock: 4 }] })
       .expect(201);
 
@@ -153,20 +153,20 @@ describe('ProductsController mutations', () => {
     );
   });
 
-  it('allows a seller to remove a product', async () => {
+  it('allows a admin to remove a product', async () => {
     await request(app.getHttpServer())
       .post('/products/2/remove')
-      .set('Authorization', 'Bearer seller-token')
+      .set('Authorization', 'Bearer admin-token')
       .send({})
       .expect(201);
 
     expect(productsService.remove).toHaveBeenCalledWith(2);
   });
 
-  it('rejects invalid product data from a seller', async () => {
+  it('rejects invalid product data from a admin', async () => {
     await request(app.getHttpServer())
       .post('/products')
-      .set('Authorization', 'Bearer seller-token')
+      .set('Authorization', 'Bearer admin-token')
       .send({
         ...validProduct,
         variants: [{ weight: '250g', price: 95000, stock: -1 }],
@@ -179,7 +179,7 @@ describe('ProductsController mutations', () => {
   it('rejects an invalid category and roast level on update', async () => {
     await request(app.getHttpServer())
       .post('/products/2')
-      .set('Authorization', 'Bearer seller-token')
+      .set('Authorization', 'Bearer admin-token')
       .send({ category: 'LIBERICA', roastLevel: 6 })
       .expect(400);
 

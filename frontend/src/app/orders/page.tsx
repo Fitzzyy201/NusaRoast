@@ -799,7 +799,7 @@ export default function OrdersPage() {
                                       </div>
                                     ) : (
                                       <p className="mt-2 font-jakarta text-xs leading-5 text-muted">
-                                        Nomor resi belum dimasukkan oleh penjual.
+                                        Nomor resi belum dimasukkan oleh admin.
                                       </p>
                                     )}
                                   </div>
@@ -823,7 +823,7 @@ export default function OrdersPage() {
                                     </h3>
                                   </div>
                                   <p className="mt-2 font-jakarta text-[13px] leading-5 text-muted sm:text-sm">
-                                    Pesanan ini dibatalkan oleh penjual.
+                                    Pesanan ini dibatalkan oleh admin.
                                   </p>
                                   {order.cancellationReason && (
                                     <div className="mt-2.5 rounded-md border border-border bg-paper px-3 py-2.5">
@@ -836,7 +836,7 @@ export default function OrdersPage() {
                                     </div>
                                   )}
                                   <p className="mt-2.5 font-jakarta text-xs leading-5 text-muted">
-                                    Sudah membayar? Penjual akan menghubungi Anda via WhatsApp
+                                    Sudah membayar? Admin akan menghubungi Anda via WhatsApp
                                     untuk urusan pengembalian dana.
                                   </p>
                                 </div>

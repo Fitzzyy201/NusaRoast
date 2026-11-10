@@ -1,0 +1,6 @@
+-- Reverse: rename role ADMIN -> SELLER.
+ALTER TABLE `User` MODIFY `role` ENUM('BUYER', 'ADMIN', 'SELLER') NOT NULL DEFAULT 'BUYER';
+
+UPDATE `User` SET `role` = 'SELLER' WHERE `role` = 'ADMIN';
+
+ALTER TABLE `User` MODIFY `role` ENUM('BUYER', 'SELLER') NOT NULL DEFAULT 'BUYER';

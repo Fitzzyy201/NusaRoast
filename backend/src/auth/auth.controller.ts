@@ -50,9 +50,9 @@ export class AuthController {
     @Req() req: AuthenticatedRequest,
     @Body() dto: ChangePasswordDto,
   ) {
-    if (req.user!.role === 'SELLER') {
+    if (req.user!.role === 'ADMIN') {
       throw new UnauthorizedException(
-        'Penjual tidak diizinkan mengubah password',
+        'Admin tidak diizinkan mengubah password',
       );
     }
     return this.authService.changePassword(req.user!.userId, dto);
